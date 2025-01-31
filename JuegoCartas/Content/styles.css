@@ -1,0 +1,57 @@
+﻿/* Estilos Generales */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Contenedor del Juego */
+.contenedor-juego {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Tablero del Juego */
+.juego-grid {
+    width: 50%;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+    .juego-grid td {
+        padding: 10px;
+        text-align: center;
+        width: 100px;
+        height: 140px;
+    }
+
+/* Cartas */
+.carta {
+    width: 100px;
+    height: 140px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+}
+
+    /* Animación cuando una carta es volteada */
+    .carta:hover {
+        transform: scale(1.05);
+    }
+
+/* Botón Reiniciar */
+.boton-reiniciar {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 20px;
+    font-size: 18px;
