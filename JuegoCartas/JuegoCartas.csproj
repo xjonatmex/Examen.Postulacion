@@ -111,6 +111,7 @@
     <Content Include="Images\carta4.PNG" />
     <Content Include="Images\cartabase.PNG" />
     <Content Include="Images\feliz.png" />
+    <Content Include="Images\fondo.jpg" />
     <Content Include="Images\triste.png" />
     <Content Include="Scripts\script.js" />
     <Content Include="Site.Master" />
