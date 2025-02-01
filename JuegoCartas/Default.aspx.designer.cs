@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace JuegoCartas
+namespace Memoria
 {
 
 
@@ -24,21 +24,21 @@ namespace JuegoCartas
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Control rptCartas.
+        /// Control contadorVidas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptCartas;
+        protected global::System.Web.UI.WebControls.Literal contadorVidas;
 
         /// <summary>
-        /// Control btnReiniciar.
+        /// Control tablero.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnReiniciar;
+        protected global::System.Web.UI.WebControls.Panel tablero;
     }
 }

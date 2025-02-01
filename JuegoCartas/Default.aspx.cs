@@ -1,15 +1,14 @@
-﻿using JuegoCartas.Modelo;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace JuegoCartas
+namespace Memoria
 {
-    public partial class Default : System.Web.UI.Page
+    public partial class Default : Page
     {
+        private static readonly int[] valoresCartas = { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8 };
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -20,97 +19,46 @@ namespace JuegoCartas
 
         private void IniciarJuego()
         {
-            List<Carta> cartas = GenerarCartas();
-            Session["Cartas"] = cartas;
-            Session["PrimeraCarta"] = null;
-            Session["SegundaCarta"] = null;
-            Session["Bloqueo"] = false;
+            List<int> cartasMezcladas = new List<int>(valoresCartas);
+            cartasMezcladas.Sort((a, b) => Guid.NewGuid().CompareTo(Guid.NewGuid()));
+            ViewState["Cartas"] = cartasMezcladas;
+            ViewState["Vidas"] = 3;
+            ViewState["Aciertos"] = new List<int>(); // Guarda los aciertos
 
-            rptCartas.DataSource = cartas;
-            rptCartas.DataBind();
+            RenderizarTablero();
+            RenderizarVidas();
         }
 
-        private List<Carta> GenerarCartas()
+        private void RenderizarTablero()
         {
-            List<string> imagenes = new List<string> { "carta1.PNG", "carta2.PNG", "carta3.PNG", "carta4.PNG" };
-            imagenes.AddRange(imagenes); 
-            imagenes = imagenes.OrderBy(a => Guid.NewGuid()).ToList(); // Barajar
+            List<int> cartas = (List<int>)ViewState["Cartas"];
+            List<int> aciertos = (List<int>)ViewState["Aciertos"];
+            tablero.Controls.Clear();
 
-            List<Carta> cartas = new List<Carta>();
-            for (int i = 0; i < imagenes.Count; i++)
+            for (int i = 0; i < cartas.Count; i++)
             {
-                cartas.Add(new Carta { ID = i, Imagen = imagenes[i], Descubierta = false });
-            }
-            return cartas;
-        }
+                string claseCarta = aciertos.Contains(i) ? "descubierta" : "carta";
+                string contenidoCarta = aciertos.Contains(i) ? cartas[i].ToString() : cartas[i].ToString();
 
-        protected void VoltearCarta(object sender, ImageClickEventArgs e)
-        {
-            if ((bool)Session["Bloqueo"]) return; // Bloquear clics mientras se comparan cartas
-
-            ImageButton clickedButton = (ImageButton)sender;
-            int idCarta = Convert.ToInt32(clickedButton.CommandArgument);
-            List<Carta> cartas = (List<Carta>)Session["Cartas"];
-
-            Carta cartaSeleccionada = cartas.FirstOrDefault(c => c.ID == idCarta);
-            if (cartaSeleccionada == null || cartaSeleccionada.Descubierta || cartaSeleccionada.Emparejada) return;
-
-            cartaSeleccionada.Descubierta = true;
-
-            if (Session["PrimeraCarta"] == null)
-            {
-                Session["PrimeraCarta"] = cartaSeleccionada;
-            }
-            else if (Session["SegundaCarta"] == null)
-            {
-                Session["SegundaCarta"] = cartaSeleccionada;
-                Session["Bloqueo"] = true; // Evitar más clics mientras se comparan cartas
-
-                // Comparar cartas después de 1 segundo
-                System.Threading.Timer timer = new System.Threading.Timer((state) =>
+                Literal carta = new Literal
                 {
-                    ComprobarCartas();
-                }, null, 1000, System.Threading.Timeout.Infinite);
+                    Text = $"<div class='{claseCarta}' onclick='voltearCarta(this, {i})'>{contenidoCarta}</div>"
+                };
+                tablero.Controls.Add(carta);
             }
-
-            Session["Cartas"] = cartas;
-            rptCartas.DataSource = cartas;
-            rptCartas.DataBind();
         }
 
-        private void ComprobarCartas()
+        private void RenderizarVidas()
         {
-            List<Carta> cartas = (List<Carta>)Session["Cartas"];
-            Carta primera = (Carta)Session["PrimeraCarta"];
-            Carta segunda = (Carta)Session["SegundaCarta"];
+            int vidas = ViewState["Vidas"] != null ? (int)ViewState["Vidas"] : 3;
+            string corazones = "";
 
-            if (primera != null && segunda != null)
+            for (int i = 0; i < 3; i++)
             {
-                if (primera.Imagen == segunda.Imagen)
-                {
-                    primera.Emparejada = true;
-                    segunda.Emparejada = true;
-                }
-                else
-                {
-                    primera.Descubierta = false;
-                    segunda.Descubierta = false;
-                }
+                corazones += (i < vidas) ? "❤️ " : "<span class='corazon gris'>❤️</span> ";
             }
 
-            // Resetear selección
-            Session["PrimeraCarta"] = null;
-            Session["SegundaCarta"] = null;
-            Session["Bloqueo"] = false;
-
-            Session["Cartas"] = cartas;
-            rptCartas.DataSource = cartas;
-            rptCartas.DataBind();
-        }
-
-        protected void ReiniciarJuego(object sender, EventArgs e)
-        {
-            IniciarJuego();
+            contadorVidas.Text = corazones;
         }
     }
 }
