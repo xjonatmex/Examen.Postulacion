@@ -5,9 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Memoria</title>
+    
+    <!-- Librería SweetAlert2 para mostrar mensajes emergentes -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Enlace a la hoja de estilos personalizada -->
     <link rel="stylesheet" href="Content/styles.css">
-    <link rel="stylesheet" href="Content/bootstrap.min.css"> <!-- Cargar Bootstrap desde tu proyecto -->
+
+    <!-- Enlace a Bootstrap para diseño responsivo -->
+    <link rel="stylesheet" href="Content/bootstrap.min.css">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -35,6 +41,7 @@
                 <div class="col-lg-4 text-center">
                     <div class="dificultad p-3">
                         <h2 class="text-center">DIFICULTAD</h2>
+                        <!-- Botones para seleccionar la dificultad -->
                         <button type="button" class="btn btn-success btn-lg mb-2" onclick="cambiarDificultad(2)">2x2 Fácil</button>
                         <br />
                         <button type="button" class="btn btn-danger btn-lg" onclick="cambiarDificultad(4)">4x4 Difícil</button>
@@ -58,6 +65,7 @@
                         <p>Encuentra todas las parejas de cartas antes de quedarte sin vidas.</p>
                         <p>Cada vez que falles, perderás una vida. Al perder todas, el juego reiniciará.</p>
                         <p>¡Buena suerte!</p>
+                        <!-- Imagen interactiva que cambia al hacer clic -->
                         <img id="imagenIndicaciones" src="Images/rostronormal.png" alt="Indicaciones" onclick="cambiarImagen()" class="img-fluid">
                     </div>
                 </div>
@@ -71,6 +79,11 @@
         let bloqueo = false;
         let vidas = 5;
 
+        /**
+         * Voltea una carta seleccionada y gestiona la lógica de aciertos o fallos.
+         * @param {HTMLElement} elemento - La carta seleccionada.
+         * @param {number} indice - El índice de la carta en el tablero.
+         */
         function voltearCarta(elemento, indice) {
             if (bloqueo) return;
             if (elemento.classList.contains("descubierta")) return;
@@ -89,7 +102,7 @@
                     if (primeraCarta.elemento.innerText === segundaCarta.elemento.innerText) {
                         primeraCarta = null;
                         segundaCarta = null;
-                        verificarVictoria(); // 🔥 Verifica si todas las cartas han sido descubiertas
+                        verificarVictoria(); // Verifica si todas las cartas han sido descubiertas
                     } else {
                         primeraCarta.elemento.classList.remove("descubierta");
                         segundaCarta.elemento.classList.remove("descubierta");
@@ -104,6 +117,9 @@
             }
         }
 
+        /**
+         * Verifica si todas las cartas han sido descubiertas y muestra un mensaje de victoria.
+         */
         function verificarVictoria() {
             let cartas = document.querySelectorAll(".carta");
             let todasDescubiertas = true;
@@ -126,7 +142,10 @@
             }
         }
 
-
+        /**
+         * Reduce la cantidad de vidas cuando el jugador comete un error.
+         * Muestra corazones rojos restantes y X rojas cuando pierde vidas.
+         */
         function reducirVidas() {
             vidas--;
 
@@ -154,6 +173,9 @@
             }
         }
 
+        /**
+         * Cambia la imagen de indicaciones entre dos estados al hacer clic en ella.
+         */
         function cambiarImagen() {
             let imagen = document.getElementById("imagenIndicaciones");
             if (imagen.src.includes("Images/rostroalegre.png")) {
@@ -163,6 +185,10 @@
             }
         }
 
+        /**
+         * Cambia la dificultad del juego y recarga la página con el nuevo tamaño de tablero.
+         * @param {number} nivel - La cantidad de columnas y filas del tablero (2 o 4).
+         */
         function cambiarDificultad(nivel) {
             window.location.href = `Default.aspx?dificultad=${nivel}`;
         }
@@ -170,4 +196,3 @@
 
 </body>
 </html>
-
