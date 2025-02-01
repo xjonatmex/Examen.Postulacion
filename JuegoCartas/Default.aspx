@@ -29,6 +29,12 @@
         .vidas { margin: 20px; }
         .corazon { font-size: 24px; color: red; margin: 5px; }
         .gris { color: gray; }
+        .btn-reiniciar {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -42,6 +48,9 @@
 
         <!-- Tablero del Juego -->
         <asp:Panel ID="tablero" runat="server" CssClass="tablero"></asp:Panel>
+
+        <!-- Botón de Reinicio -->
+<asp:Button ID="btnReiniciar" runat="server" Text="REINICIAR" OnClick="ReiniciarJuego_Click" CssClass="btn-reiniciar" />
 
     </form>
 
@@ -104,6 +113,8 @@
                 });
             }
         }
+
+        
     </script>
 
 </body>

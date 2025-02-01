@@ -60,5 +60,10 @@ namespace Memoria
 
             contadorVidas.Text = corazones;
         }
+
+        protected void ReiniciarJuego_Click(object sender, EventArgs e)
+        {
+            IniciarJuego();
+        }
     }
 }
