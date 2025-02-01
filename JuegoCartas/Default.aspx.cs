@@ -55,11 +55,19 @@ namespace Memoria
 
             for (int i = 0; i < 3; i++)
             {
-                corazones += (i < vidas) ? "❤️ " : "<span class='corazon gris'>❤️</span> ";
+                if (i < vidas)
+                {
+                    corazones += "❤️ ";
+                }
+                else
+                {
+                    corazones += "<span class='corazon' style='color: red;'>❌</span> ";
+                }
             }
 
             contadorVidas.Text = corazones;
         }
+
 
         protected void ReiniciarJuego_Click(object sender, EventArgs e)
         {

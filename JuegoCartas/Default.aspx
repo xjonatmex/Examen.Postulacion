@@ -100,16 +100,24 @@
 
             let corazones = "";
             for (let i = 0; i < 3; i++) {
-                corazones += (i < vidas) ? "❤️ " : "<span class='corazon gris'>❤️</span> ";
+                if (i < vidas) {
+                    corazones += "❤️ ";
+                } else {
+                    corazones += "<span class='corazon' style='color: red;'>❌</span> ";
+                }
             }
             document.querySelector(".vidas").innerHTML = corazones;
 
             if (vidas === 0) {
                 Swal.fire({
                     title: "¡Perdiste!",
-                    text: "Se acabaron tus vidas, recarga la página para jugar de nuevo.",
+                    text: "Se acabaron tus vidas, volverás a empezar.",
                     icon: "error",
                     confirmButtonText: "Aceptar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById("btnReiniciar").click(); // Simula el clic en el botón REINICIAR
+                    }
                 });
             }
         }
