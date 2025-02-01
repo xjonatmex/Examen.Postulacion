@@ -36,6 +36,7 @@
                     <div class="dificultad p-3">
                         <h2 class="text-center">DIFICULTAD</h2>
                         <button type="button" class="btn btn-success btn-lg mb-2" onclick="cambiarDificultad(2)">2x2 Fácil</button>
+                        <br />
                         <button type="button" class="btn btn-danger btn-lg" onclick="cambiarDificultad(4)">4x4 Difícil</button>
                     </div>
                 </div>
@@ -74,9 +75,9 @@
             if (bloqueo) return;
             if (elemento.classList.contains("descubierta")) return;
 
-            let numeroCarta = elemento.getAttribute("data-numero"); // Obtiene el número real de la carta
+            let numeroCarta = elemento.getAttribute("data-numero");
             elemento.classList.add("descubierta");
-            elemento.innerText = numeroCarta; // Muestra el número al voltear
+            elemento.innerText = numeroCarta;
 
             if (!primeraCarta) {
                 primeraCarta = { elemento, indice };
@@ -88,11 +89,12 @@
                     if (primeraCarta.elemento.innerText === segundaCarta.elemento.innerText) {
                         primeraCarta = null;
                         segundaCarta = null;
+                        verificarVictoria(); // 🔥 Verifica si todas las cartas han sido descubiertas
                     } else {
                         primeraCarta.elemento.classList.remove("descubierta");
                         segundaCarta.elemento.classList.remove("descubierta");
-                        primeraCarta.elemento.innerText = ""; // Oculta el número
-                        segundaCarta.elemento.innerText = ""; // Oculta el número
+                        primeraCarta.elemento.innerText = "";
+                        segundaCarta.elemento.innerText = "";
                         reducirVidas();
                     }
                     bloqueo = false;
@@ -101,6 +103,29 @@
                 }, 1000);
             }
         }
+
+        function verificarVictoria() {
+            let cartas = document.querySelectorAll(".carta");
+            let todasDescubiertas = true;
+
+            cartas.forEach(carta => {
+                if (!carta.classList.contains("descubierta")) {
+                    todasDescubiertas = false;
+                }
+            });
+
+            if (todasDescubiertas) {
+                Swal.fire({
+                    title: "¡Felicidades!",
+                    text: "Has ganado el juego 🎉",
+                    imageUrl: "Images/ganaste.png",
+                    imageWidth: 300,
+                    imageHeight: 200,
+                    confirmButtonText: "Aceptar"
+                });
+            }
+        }
+
 
         function reducirVidas() {
             vidas--;

@@ -124,6 +124,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\cartabase.PNG" />
     <Content Include="Images\fondo.jpg" />
+    <Content Include="Images\ganaste.PNG" />
     <Content Include="Images\rostroalegre.PNG" />
     <Content Include="Images\rostronormal.PNG" />
     <Content Include="Scripts\bootstrap.bundle.js" />

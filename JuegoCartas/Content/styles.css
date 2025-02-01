@@ -38,7 +38,7 @@ body {
         width: 100px;
         cursor: pointer;
         margin-top: 10px;
-    }
+    }    
 
 /* Tablero del juego */
 .tablero {
@@ -63,11 +63,21 @@ body {
     user-select: none; /* Evita que se pueda seleccionar el texto */
 }
 
-   
+    .carta:hover {
+        transform: scale(1.1); /* Aumenta el tamaño en 10% y se mueve 5px a la derecha */
+    }
 
 .descubierta {
-    background: none;
-    color: black !important; /* Muestra el número solo cuando la carta está descubierta */
+    background: white !important; /* Fondo blanco cuando la carta es volteada */
+    color: black !important; /* El número se mostrará en negro */
+    border: 3px solid black !important; /* Borde negro más grueso */
+    font-size: 40px; /* Tamaño de fuente más grande */
+    font-family: Arial, sans-serif;
+    font-weight: bold; /* Hace el texto bien negrita */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Contador de vidas */
