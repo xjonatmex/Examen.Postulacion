@@ -7,10 +7,38 @@ body {
     color: white;
 }
 
-h1 {
-    transform: scale(1.05);
-    color :black;
+/* Contenedor general */
+.contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 90%;
+    margin: auto;
 }
+
+/* Sección del juego */
+.juego {
+    flex: 2;
+}
+
+/* Indicaciones */
+.indicaciones {
+    flex: 1;
+    background: white;
+    color: black;
+    border: 2px solid black;
+    padding: 15px;
+    text-align: center;
+    max-width: 300px;
+    border-radius: 10px;
+}
+
+    /* Imagen de indicaciones */
+    .indicaciones img {
+        width: 100px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
 
 /* Tablero del juego */
 .tablero {
@@ -20,11 +48,11 @@ h1 {
     justify-content: center;
 }
 
-/* Cartas */
 .carta {
     width: 100px;
     height: 100px;
-    background-color: gray;
+    background: url('../Images/cartabase.PNG') no-repeat center center;
+    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,12 +60,14 @@ h1 {
     cursor: pointer;
     color: transparent; /* Oculta el número al inicio */
     border: 1px solid white;
+    user-select: none; /* Evita que se pueda seleccionar el texto */
 }
 
+   
+
 .descubierta {
-    background-color: white;
-    color: black !important; /* Asegura que los números sean visibles */
-    border: 2px solid white;
+    background: none;
+    color: black !important; /* Muestra el número solo cuando la carta está descubierta */
 }
 
 /* Contador de vidas */

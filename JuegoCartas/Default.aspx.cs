@@ -7,7 +7,7 @@ namespace Memoria
 {
     public partial class Default : Page
     {
-        private static readonly int[] valoresCartas = { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8 };
+        private static readonly int[] valoresCartas = { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8};
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,7 +22,7 @@ namespace Memoria
             List<int> cartasMezcladas = new List<int>(valoresCartas);
             cartasMezcladas.Sort((a, b) => Guid.NewGuid().CompareTo(Guid.NewGuid()));
             ViewState["Cartas"] = cartasMezcladas;
-            ViewState["Vidas"] = 3;
+            ViewState["Vidas"] = 5;
             ViewState["Aciertos"] = new List<int>(); // Guarda los aciertos
 
             RenderizarTablero();
@@ -49,24 +49,24 @@ namespace Memoria
         }
 
         private void RenderizarVidas()
+{
+    int vidas = ViewState["Vidas"] != null ? (int)ViewState["Vidas"] : 5;
+    string corazones = "";
+
+    for (int i = 0; i < 5; i++)
+    {
+        if (i < vidas)
         {
-            int vidas = ViewState["Vidas"] != null ? (int)ViewState["Vidas"] : 3;
-            string corazones = "";
-
-            for (int i = 0; i < 3; i++)
-            {
-                if (i < vidas)
-                {
-                    corazones += "❤️ ";
-                }
-                else
-                {
-                    corazones += "<span class='corazon' style='color: red;'>❌</span> ";
-                }
-            }
-
-            contadorVidas.Text = corazones;
+            corazones += "❤️ ";
         }
+        else
+        {
+            corazones += "<span class='corazon' style='color: red;'>❌</span> ";
+        }
+    }
+
+    contadorVidas.Text = corazones;
+}
 
 
         protected void ReiniciarJuego_Click(object sender, EventArgs e)
