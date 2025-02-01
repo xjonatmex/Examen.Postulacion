@@ -31,8 +31,14 @@
 
             <!-- Fila principal con 3 columnas -->
             <div class="row justify-content-center mt-3">
-                <!-- Primera columna (4 espacios vacíos) -->
-                <div class="col-lg-4"></div>
+                <!-- Primera columna (Botones de dificultad) -->
+                <div class="col-lg-4 text-center">
+                    <div class="dificultad p-3">
+                        <h2 class="text-center">DIFICULTAD</h2>
+                        <button type="button" class="btn btn-success btn-lg mb-2" onclick="cambiarDificultad(2)">2x2 Fácil</button>
+                        <button type="button" class="btn btn-danger btn-lg" onclick="cambiarDificultad(4)">4x4 Difícil</button>
+                    </div>
+                </div>
 
                 <!-- Segunda columna (Tablero de Juego) -->
                 <div class="col-lg-4 text-center">
@@ -68,8 +74,9 @@
             if (bloqueo) return;
             if (elemento.classList.contains("descubierta")) return;
 
+            let numeroCarta = elemento.getAttribute("data-numero"); // Obtiene el número real de la carta
             elemento.classList.add("descubierta");
-            elemento.style.color = "black"; // Muestra el número
+            elemento.innerText = numeroCarta; // Muestra el número al voltear
 
             if (!primeraCarta) {
                 primeraCarta = { elemento, indice };
@@ -79,17 +86,13 @@
 
                 setTimeout(() => {
                     if (primeraCarta.elemento.innerText === segundaCarta.elemento.innerText) {
-                        // Se mantienen descubiertas
                         primeraCarta = null;
                         segundaCarta = null;
                     } else {
-                        // Se ocultan nuevamente
                         primeraCarta.elemento.classList.remove("descubierta");
                         segundaCarta.elemento.classList.remove("descubierta");
-                        primeraCarta.elemento.style.color = "transparent";
-                        segundaCarta.elemento.style.color = "transparent";
-
-                        // Reducir vida
+                        primeraCarta.elemento.innerText = ""; // Oculta el número
+                        segundaCarta.elemento.innerText = ""; // Oculta el número
                         reducirVidas();
                     }
                     bloqueo = false;
@@ -133,6 +136,10 @@
             } else {
                 imagen.src = "Images/rostroalegre.png";
             }
+        }
+
+        function cambiarDificultad(nivel) {
+            window.location.href = `Default.aspx?dificultad=${nivel}`;
         }
     </script>
 
