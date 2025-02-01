@@ -6,36 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Memoria</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        body { text-align: center; font-family: Arial, sans-serif; }
-        .tablero { display: grid; grid-template-columns: repeat(4, 100px); gap: 10px; justify-content: center; }
-        .carta { 
-            width: 100px; 
-            height: 100px; 
-            background-color: gray; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 24px; 
-            cursor: pointer; 
-            color: transparent; /* Oculta el número al inicio */
-            border: 1px solid black;
-        }
-        .descubierta { 
-            background-color: white; 
-            color: black !important; /* Asegura que los números sean visibles */
-            border: 2px solid black;
-        }
-        .vidas { margin: 20px; }
-        .corazon { font-size: 24px; color: red; margin: 5px; }
-        .gris { color: gray; }
-        .btn-reiniciar {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
+     <link rel="stylesheet" href="Content/styles.css"> 
 </head>
 <body>
     <form id="form1" runat="server">
